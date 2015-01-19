@@ -53,6 +53,8 @@ public class FunctionManager {
 
     public static final String FUN_SUFFIX = ")"; //$NON-NLS-1$
 
+    public static final String EMPTY_STRING = " "; //$NON-NLS-1$
+
     /**
      * qzhang Comment method "getFunctionByName".
      * 

@@ -14,7 +14,7 @@ package org.talend.repository.example.viewer.action.demo;
 
 import org.eclipse.jface.action.IMenuManager;
 import org.eclipse.ui.IActionBars;
-import org.talend.repository.metadata.action.MetedataNodeActionProvier;
+import org.talend.repository.view.di.metadata.action.MetedataNodeActionProvier;
 
 /**
  * DOC ggu class global comment. Detailled comment <br/>

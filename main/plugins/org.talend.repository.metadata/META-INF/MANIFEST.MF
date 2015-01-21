@@ -39,13 +39,9 @@ Require-Bundle: org.apache.commons.lang,
 Bundle-ActivationPolicy: lazy
 Bundle-Localization: plugin
 Export-Package: org.talend.repository.metadata,
- org.talend.repository.metadata.action,
- org.talend.repository.metadata.content,
- org.talend.repository.metadata.content.rules,
  org.talend.repository.metadata.importexport,
  org.talend.repository.metadata.migration,
  org.talend.repository.metadata.seeker,
- org.talend.repository.metadata.tester,
  org.talend.repository.metadata.ui.actions.metadata,
  org.talend.repository.metadata.ui.actions.toolbar,
  org.talend.repository.metadata.ui.dialog,

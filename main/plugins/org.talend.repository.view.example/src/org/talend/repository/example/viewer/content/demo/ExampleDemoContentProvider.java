@@ -14,8 +14,8 @@ package org.talend.repository.example.viewer.content.demo;
 
 import org.talend.core.repository.model.ProjectRepositoryNode;
 import org.talend.repository.example.viewer.node.ExampleDemoRepositoryNodeType;
-import org.talend.repository.metadata.content.AbstractMetadataContentProvider;
 import org.talend.repository.model.RepositoryNode;
+import org.talend.repository.view.di.metadata.content.AbstractMetadataContentProvider;
 
 /**
  * DOC ggu class global comment. Detailled comment <br/>

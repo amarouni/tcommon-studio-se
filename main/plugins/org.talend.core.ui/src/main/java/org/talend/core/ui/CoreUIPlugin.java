@@ -12,12 +12,14 @@
 // ============================================================================
 package org.talend.core.ui;
 
+import org.eclipse.e4.ui.services.IStylingEngine;
 import org.eclipse.jface.resource.ImageDescriptor;
 import org.eclipse.ui.plugin.AbstractUIPlugin;
 import org.osgi.framework.BundleContext;
 import org.talend.core.GlobalServiceRegister;
 import org.talend.core.IService;
 import org.talend.core.runtime.CoreRuntimePlugin;
+import org.talend.core.ui.inject.CoreUIInjectInstanceProvider;
 import org.talend.core.ui.services.IDesignerCoreUIService;
 import org.talend.core.ui.services.IOpenJobScriptActionService;
 import org.talend.designer.core.IDesignerCoreService;
@@ -39,7 +41,6 @@ public class CoreUIPlugin extends AbstractUIPlugin {
 
     public CoreUIPlugin() {
         plugin = this;
-
     }
 
     /*
@@ -110,5 +111,28 @@ public class CoreUIPlugin extends AbstractUIPlugin {
     public IMetadataService getMetadataService() {
         IService service = GlobalServiceRegister.getDefault().getService(IMetadataService.class);
         return (IMetadataService) service;
+    }
+
+    public static IStylingEngine getCSSStylingEngine() {
+        CoreUIInjectInstanceProvider provider = CoreUIInjectInstanceProvider.getInstance();
+        IStylingEngine stylingEngine = null;
+        if (provider != null) {
+            stylingEngine = provider.getCSSStylingEngine();
+        }
+        return stylingEngine;
+    }
+
+    public static void setCSSId(Object widget, String idName) {
+        IStylingEngine cssStylingEngine = getCSSStylingEngine();
+        if (cssStylingEngine != null) {
+            cssStylingEngine.setId(widget, idName);
+        }
+    }
+
+    public static void setCSSClass(Object widget, String className) {
+        IStylingEngine cssStylingEngine = getCSSStylingEngine();
+        if (cssStylingEngine != null) {
+            cssStylingEngine.setClassname(widget, className);
+        }
     }
 }

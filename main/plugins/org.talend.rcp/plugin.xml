@@ -341,5 +341,12 @@
          id="org.talend.rcp.perspective">
    </perspective>
 </extension>
-
+<extension
+      point="org.eclipse.e4.ui.css.swt.theme">
+   <theme
+         basestylesheeturi="themes/default/css/default.css"
+         id="org.talend.rcp.themes.default"
+         label="Talend default theme">
+   </theme>
+</extension>
 </plugin>

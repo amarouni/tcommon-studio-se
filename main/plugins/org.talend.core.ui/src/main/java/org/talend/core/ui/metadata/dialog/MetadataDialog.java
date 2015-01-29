@@ -47,8 +47,6 @@ import org.talend.commons.ui.swt.extended.table.ExtendedTableModel;
 import org.talend.commons.ui.swt.tableviewer.IModifiedBeanListener;
 import org.talend.commons.ui.swt.tableviewer.ModifiedBeanEvent;
 import org.talend.commons.ui.swt.tableviewer.TableViewerCreator;
-import org.talend.core.GlobalServiceRegister;
-import org.talend.core.PluginChecker;
 import org.talend.core.database.EDatabaseTypeName;
 import org.talend.core.model.metadata.Dbms;
 import org.talend.core.model.metadata.IMetadataColumn;
@@ -62,7 +60,6 @@ import org.talend.core.model.process.EParameterFieldType;
 import org.talend.core.model.process.IElementParameter;
 import org.talend.core.model.process.INode;
 import org.talend.core.model.process.INodeConnector;
-import org.talend.core.service.IEBCDICProviderService;
 import org.talend.core.ui.CoreUIPlugin;
 import org.talend.core.ui.i18n.Messages;
 import org.talend.core.ui.metadata.editor.AbstractMetadataTableEditorView;
@@ -198,7 +195,7 @@ public class MetadataDialog extends Dialog {
         boolean isEBCDIC = false;
         if (node != null && node.getComponent() != null) {
             eltComponent = node.isELTComponent();
-            isEBCDIC = isEbcdicNode(node);
+            isEBCDIC = node.getComponent().getName().contains("EBCDIC");
             if (node.getComponent().isSupportDbType() || node.getComponent().getOriginalFamilyName().startsWith(DATABASE_LABEL)
                     || eltComponent || isEBCDIC) {
                 dbComponent = !isEBCDIC;
@@ -285,17 +282,18 @@ public class MetadataDialog extends Dialog {
 
         metaView.setShowOriginalLength(isEBCDIC);
 
-        showColumnsOfCustomComponents(node, metaView);
-    }
-
-    private static void showColumnsOfCustomComponents(INode node, MetadataTableEditorView metaView) {
-        if (isEbcdicNode(node)) {
+        if (isEBCDIC) {
             metaView.setShowOriginalLength(true);
             List<String> fieldList = new ArrayList<String>();
             fieldList.add("ImpliedDecimal"); //$NON-NLS-1$
             fieldList.add("Signed"); //$NON-NLS-1$
             metaView.setAdditionalFields(fieldList);
         }
+
+        showColumnsOfCustomComponents(node, metaView);
+    }
+
+    private static void showColumnsOfCustomComponents(INode node, MetadataTableEditorView metaView) {
         if (isRedShiftNode(node)) {
             metaView.setShowPrecisionColumn(false);
         }
@@ -340,7 +338,8 @@ public class MetadataDialog extends Dialog {
                         String key = (String) it.next();
                         if (key.equals("SAP_TABLE_NAME")) {
                             String value = (String) map.get(key);
-                            if (this.outputMetaTable.getLabel().equals(TalendQuoteUtils.removeQuotes(value))) {
+                            String tableLabel = this.outputMetaTable.getLabel();
+                            if (tableLabel != null && tableLabel.equals(TalendQuoteUtils.removeQuotes(value))) {
                                 if (map.containsKey("SCHEMA-TYPE") && map.containsValue("REPOSITORY")) {
                                     nodeModeFlag = true;
                                 }
@@ -795,17 +794,6 @@ public class MetadataDialog extends Dialog {
      */
     public void setSingleAndStruct(boolean isSingle) {
         this.isSingleAndStruct = isSingle;
-    }
-
-    private static boolean isEbcdicNode(INode node) {
-        if (PluginChecker.isEBCDICPluginLoaded()) {
-            IEBCDICProviderService service = (IEBCDICProviderService) GlobalServiceRegister.getDefault().getService(
-                    IEBCDICProviderService.class);
-            if (service != null) {
-                return service.isEbcdicNode(node);
-            }
-        }
-        return false;
     }
 
     private static boolean isRedShiftNode(INode node) {

@@ -66,19 +66,17 @@ public class JarLoaderBundleFileWrapperFactory implements BundleFileWrapperFacto
         public BundleEntry getEntry(String path) {
             // we are using te getEntry to trick equinox when a jar file is missing
             BundleEntry be = super.getEntry(path);
-            if (be == null && path.endsWith(".jar")) { //$NON-NLS-1$ //jar file that does not exists.
+            if (be == null && path.endsWith(".jar") && !getMissingJars().contains(path + "/")) { //$NON-NLS-1$ //jar file that does not exists.
                 // use the getFile to find the jar from the lib/java folder.
                 File file = getFile(path, false);
-                if (file == null) {
-                    // fake the entry cause using the getFile returns a file that get tested for existance
-                    // this does not get tested. This is called the first time the jar is missing.
-                    // we also record the missing jar
-                    getMissingJars().add(path + "/"); //$NON-NLS-1$
-                    be = new FileBundleEntry(generation.getBundleFile().getBaseFile(), path);
+                if (file != null) {
+                    be = new FileBundleEntry(file, path);
                     MissingJarServices
                             .logDebugInfo("fake FileBundleEntry created for :" + generation.getRevision().getSymbolicName() + "/" + path); //$NON-NLS-1$//$NON-NLS-2$
 
-                }// else entry is a jar an will be found when calling getFile
+                } else {
+                    getMissingJars().add(path + "/");
+                }
             } else {
                 // check for a fake entry, that is a missing jar already check and create a specific bundle entry so
                 // that the Wrapper factory can detect this is a missing jar entry

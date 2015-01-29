@@ -23,6 +23,7 @@ import org.eclipse.swt.widgets.Control;
 import org.talend.commons.ui.runtime.expressionbuilder.ICellEditorDialog;
 import org.talend.commons.ui.runtime.expressionbuilder.IExtendedCellEditorBehavior;
 import org.talend.commons.ui.runtime.i18n.Messages;
+import org.talend.commons.ui.runtime.ws.WindowSystem;
 
 /**
  * yzhang class global comment. Detailled comment <br/>
@@ -69,6 +70,7 @@ public class CellEditorDialogBehavior implements IExtendedCellEditorBehavior {
      * org.talend.designer.rowgenerator.ui.tabs.IExtendedCellEditorBehavior#createBehaviorControls(org.eclipse.swt.widgets
      * .Composite)
      */
+    @Override
     public Control createBehaviorControls(Composite parent) {
 
         panel = new Composite(parent, SWT.NONE);
@@ -86,7 +88,10 @@ public class CellEditorDialogBehavior implements IExtendedCellEditorBehavior {
         panel.setLayoutData(gd);
 
         GridData controlGD = new GridData(GridData.FILL_HORIZONTAL | GridData.VERTICAL_ALIGN_BEGINNING);
-
+        // Set a default height for the text control on OS X
+        if (WindowSystem.isOSX()) {
+            controlGD.heightHint = 14;
+        }
         Control text = extendedTextCellEditor.createText(panel);
         text.setLayoutData(controlGD);
 

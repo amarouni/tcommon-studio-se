@@ -45,11 +45,15 @@ public class RepoCommonViewerProvider extends AbstractViewerProvider {
 
     private String baseViewId = null;
 
+    public TreeViewer createViewer(Composite parent, String specifiedPerspectiveId) {
+        TreeViewer treeViewer = super.createViewer(parent);
+        doFilterForCommonViewer(treeViewer, specifiedPerspectiveId);
+        return treeViewer;
+    }
+
     @Override
     public TreeViewer createViewer(Composite parent) {
-        TreeViewer treeViewer = super.createViewer(parent);
-        doFilterForCommonViewer(treeViewer);
-        return treeViewer;
+        return createViewer(parent, null);
     }
 
     @Override
@@ -63,6 +67,10 @@ public class RepoCommonViewerProvider extends AbstractViewerProvider {
     }
 
     protected void doFilterForCommonViewer(TreeViewer treeViewer) {
+        doFilterForCommonViewer(treeViewer, null);
+    }
+
+    protected void doFilterForCommonViewer(TreeViewer treeViewer, String specifiedPerspectiveId) {
         if (treeViewer instanceof INavigatorContentServiceProvider) {
             INavigatorContentService navigatorContentService = ((INavigatorContentServiceProvider) treeViewer)
                     .getNavigatorContentService();
@@ -77,7 +85,8 @@ public class RepoCommonViewerProvider extends AbstractViewerProvider {
                     helper.setNavigatorContentService(navigatorContentService);
                     helper.setActionProviderId(PerspectiveFilterActionProvider.ID);
 
-                    String perspectiveId = activePage.getPerspective().getId();
+                    String perspectiveId = specifiedPerspectiveId == null ? activePage.getPerspective().getId()
+                            : specifiedPerspectiveId;
                     helper.doFiltering(perspectiveId);
 
                 }

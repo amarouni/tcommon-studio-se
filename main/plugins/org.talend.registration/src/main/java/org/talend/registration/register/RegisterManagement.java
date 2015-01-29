@@ -31,7 +31,6 @@ import org.eclipse.jface.preference.IPreferenceStore;
 import org.eclipse.ui.PartInitException;
 import org.eclipse.ui.PlatformUI;
 import org.eclipse.ui.browser.IWebBrowser;
-import org.eclipse.update.core.SiteManager;
 import org.talend.commons.exception.BusinessException;
 import org.talend.commons.ui.runtime.exception.ExceptionHandler;
 import org.talend.commons.utils.VersionUtils;
@@ -43,6 +42,7 @@ import org.talend.core.prefs.PreferenceManipulator;
 import org.talend.core.ui.branding.IBrandingService;
 import org.talend.core.ui.token.DefaultTokenCollector;
 import org.talend.registration.i18n.Messages;
+import org.talend.registration.register.proxy.HttpProxyUtil;
 import org.talend.registration.register.proxy.RegisterUserPortTypeProxy;
 import org.talend.repository.ui.login.connections.ConnectionUserPerReader;
 
@@ -99,7 +99,7 @@ public class RegisterManagement {
             if (proxyPort != null && proxyPort.trim().equals("")) { //$NON-NLS-1$
                 proxyPort = null;
             }
-            SiteManager.setHttpProxyInfo(true, proxyHost, proxyPort);
+            HttpProxyUtil.setHttpProxyInfo(true, proxyHost, proxyPort);
         }
 
         RegisterUserPortTypeProxy proxy = new RegisterUserPortTypeProxy();
@@ -149,7 +149,7 @@ public class RegisterManagement {
             if (proxyPort != null && proxyPort.trim().equals("")) { //$NON-NLS-1$
                 proxyPort = null;
             }
-            SiteManager.setHttpProxyInfo(true, proxyHost, proxyPort);
+            HttpProxyUtil.setHttpProxyInfo(true, proxyHost, proxyPort);
         }
 
         // OS
@@ -435,7 +435,7 @@ public class RegisterManagement {
             if (proxyPort != null && proxyPort.trim().equals("")) { //$NON-NLS-1$
                 proxyPort = null;
             }
-            SiteManager.setHttpProxyInfo(true, proxyHost, proxyPort);
+            HttpProxyUtil.setHttpProxyInfo(true, proxyHost, proxyPort);
         }
 
         RegisterUserPortTypeProxy proxy = new RegisterUserPortTypeProxy();

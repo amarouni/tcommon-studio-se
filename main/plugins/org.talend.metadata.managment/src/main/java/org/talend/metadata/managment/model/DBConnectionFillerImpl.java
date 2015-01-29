@@ -1439,6 +1439,8 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
                     int nullable = getIntFromResultSet(columns, GetColumn.NULLABLE.name());
                     column.getSqlDataType().setNullable(NullableType.get(nullable));
                 }
+                // Default value
+                String defaultValue = getStringFromResultSet(columns, GetColumn.COLUMN_DEF.name());
 
                 // Comment
                 String colComment = getColumnComment(dbJDBCMetadata, columns, tablePattern, column.getName(), schemaPattern);
@@ -1447,13 +1449,13 @@ public class DBConnectionFillerImpl extends MetadataFillerImpl<DatabaseConnectio
                 ColumnHelper.setComment(colComment, column);
 
                 // TdExpression
-                Object defaultvalue = null;
+                Object defaultValueObject = null;
                 try {
-                    defaultvalue = columns.getObject(GetColumn.COLUMN_DEF.name());
+                    defaultValueObject = columns.getObject(GetColumn.COLUMN_DEF.name());
                 } catch (Exception e1) {
                     log.warn(e1, e1);
                 }
-                String defaultStr = (defaultvalue != null) ? String.valueOf(defaultvalue) : null;
+                String defaultStr = (defaultValueObject != null) ? String.valueOf(defaultValueObject) : defaultValue;
                 defaultStr = ManagementTextUtils.filterSpecialChar(defaultStr);
                 TdExpression defExpression = createTdExpression(GetColumn.COLUMN_DEF.name(), defaultStr);
                 column.setInitialValue(defExpression);

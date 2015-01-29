@@ -141,6 +141,8 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
 
     private boolean isSapSpecialSchema = false;
 
+    private boolean showDefaultColumn = true;
+
     /**
      * DOC amaumont AbstractMetadataTableEditorView constructor comment.
      */
@@ -309,8 +311,9 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
         }
 
         // //////////////////////////////////////////////////////////////////////////////////////
-
-        configureDefaultColumn(tableViewerCreator);
+        if (showDefaultColumn) {
+            configureDefaultColumn(tableViewerCreator);
+        }
 
         // //////////////////////////////////////////////////////////////////////////////////////
 
@@ -1143,5 +1146,23 @@ public abstract class AbstractMetadataTableEditorView<B> extends AbstractDataTab
      */
     public void setSapSpecialSchema(boolean isSapSpecialSchema) {
         this.isSapSpecialSchema = isSapSpecialSchema;
+    }
+
+    /**
+     * Getter for showDefaultColumn.
+     * 
+     * @return the showDefaultColumn
+     */
+    public boolean isShowDefaultColumn() {
+        return this.showDefaultColumn;
+    }
+
+    /**
+     * Sets the showDefaultColumn.
+     * 
+     * @param showDefaultColumn the showDefaultColumn to set
+     */
+    public void setShowDefaultColumn(boolean showDefaultColumn) {
+        this.showDefaultColumn = showDefaultColumn;
     }
 }

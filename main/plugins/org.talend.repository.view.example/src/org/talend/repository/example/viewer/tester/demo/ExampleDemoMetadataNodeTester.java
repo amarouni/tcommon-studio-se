@@ -14,7 +14,7 @@ package org.talend.repository.example.viewer.tester.demo;
 
 import org.talend.core.model.repository.ERepositoryObjectType;
 import org.talend.repository.example.viewer.node.ExampleDemoRepositoryNodeType;
-import org.talend.repository.metadata.tester.CoMetadataNodeTester;
+import org.talend.repository.view.di.metadata.tester.CoMetadataNodeTester;
 
 /**
  * DOC ggu class global comment. Detailled comment

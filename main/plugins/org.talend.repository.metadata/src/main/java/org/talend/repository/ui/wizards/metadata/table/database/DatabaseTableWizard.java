@@ -25,7 +25,6 @@ import org.eclipse.core.resources.ResourcesPlugin;
 import org.eclipse.core.runtime.CoreException;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.emf.common.util.EList;
-import org.eclipse.emf.common.util.EMap;
 import org.eclipse.emf.ecore.EObject;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.util.EcoreUtil;
@@ -48,7 +47,6 @@ import org.talend.core.model.metadata.builder.connection.Connection;
 import org.talend.core.model.metadata.builder.connection.DatabaseConnection;
 import org.talend.core.model.metadata.builder.connection.MetadataColumn;
 import org.talend.core.model.metadata.builder.connection.MetadataTable;
-import org.talend.core.model.metadata.builder.database.ExtractMetaDataUtils;
 import org.talend.core.model.metadata.builder.database.TableInfoParameters;
 import org.talend.core.model.properties.ConnectionItem;
 import org.talend.core.model.repository.IRepositoryViewObject;
@@ -496,5 +494,21 @@ public class DatabaseTableWizard extends CheckLastVersionRepositoryWizard implem
                     deletedOrReselectTablesMap);
         }
         return isNeed;
+    }
+
+    @Override
+    /**
+     * TUP-2073 if the related connection editor is opened in DQ side,should not unlock.
+     */
+    public void closeLockStrategy() {
+        ITDQRepositoryService tdqRepService = null;
+        if (GlobalServiceRegister.getDefault().isServiceRegistered(ITDQRepositoryService.class)) {
+            tdqRepService = (ITDQRepositoryService) GlobalServiceRegister.getDefault().getService(ITDQRepositoryService.class);
+        }
+        if (tdqRepService != null && tdqRepService.isDQEditorOpened(connectionItem)) {
+            tdqRepService.refreshConnectionEditor(connectionItem);
+            return;
+        }
+        super.closeLockStrategy();
     }
 }

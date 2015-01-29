@@ -179,8 +179,10 @@ public class DeleteAction extends AContextualAction {
                 }
                 final List<ItemReferenceBean> unDeleteItems = RepositoryNodeDeleteManager.getInstance().getUnDeleteItems(
                         selectNodes, deleteActionCache);
+                List<RepositoryNode> accessNodes = new ArrayList<RepositoryNode>();
                 for (RepositoryNode node : selectNodes) {
                     try {
+                        accessNodes.add(node);
                         // ADD xqliu 2012-05-24 TDQ-4831
                         if (sourceFileOpening(node)) {
                             continue;
@@ -243,7 +245,12 @@ public class DeleteAction extends AContextualAction {
                                 needToUpdataPalette = true;
                             }
                             if (needReturn) {
-                                return;
+                                // TDI-31623: Access the rest nodes in select nodes if current node's delete has pb
+                                if (accessNodes.containsAll(selectNodes)) {
+                                    return;
+                                } else {
+                                    continue;
+                                }
                             }
                             types.add(node.getObjectType());
 

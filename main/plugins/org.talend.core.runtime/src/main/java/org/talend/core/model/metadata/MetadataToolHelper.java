@@ -1038,55 +1038,54 @@ public final class MetadataToolHelper {
                 if (param.getValue() instanceof IMetadataTable) {
                     param.setValueToDefault(elementParameters);
                     IMetadataTable table = (IMetadataTable) param.getValue();
-                    if (mappingParameter != null) {
-                        if (mappingParameter.getValue() != null && (!mappingParameter.getValue().equals(""))) { //$NON-NLS-1$
-                            table.setDbms((String) mappingParameter.getValue());
-                        }
-                    }
-                    metadataTable.setReadOnly(table.isReadOnly());
-
-                    metadataTable.setReadOnlyColumnPosition(table.getReadOnlyColumnPosition());
-
-                    // if all the table is read only then remove all columns to
-                    // set the one defined in the emf component
-                    // if (metadataTable.isReadOnly()) {
-                    // metadataTable.getListColumns().clear();
-                    // }
-                    for (int k = 0; k < table.getListColumns().size(); k++) {
-                        IMetadataColumn newColumn = table.getListColumns().get(k);
-                        IElement element = param.getElement();
-                        IMetadataColumn oldColumn = metadataTable.getColumn(newColumn.getLabel());
-                        if (element instanceof INode && oldColumn == null) {
-                            INode node = (INode) element;
-                            if (node.getComponent().getName().equals("tGenKeyHadoop")) { //$NON-NLS-1$
-                                int lastIndexOf = node.getLabel().lastIndexOf("_"); //$NON-NLS-1$
-                                oldColumn = metadataTable
-                                        .getColumn(newColumn.getLabel() + node.getLabel().substring(lastIndexOf));
+                    String metadataTableName = metadataTable.getTableName();
+                    if (metadataTableName != null && metadataTableName.equals(table.getTableName())) {
+                        if (mappingParameter != null) {
+                            if (mappingParameter.getValue() != null && (!mappingParameter.getValue().equals(""))) { //$NON-NLS-1$
+                                table.setDbms((String) mappingParameter.getValue());
                             }
                         }
+                        metadataTable.setReadOnly(table.isReadOnly());
 
-                        if (oldColumn != null) {
-                            // if column exists, then override read only /
-                            // custom
-                            oldColumn.setReadOnly(newColumn.isReadOnly());
-                            oldColumn.setCustom(newColumn.isCustom());
-                            oldColumn.setCustomId(newColumn.getCustomId());
-                            if (newColumn.isReadOnly()) { // if read only,
-                                // override
-                                // everything
-                                oldColumn.setKey(newColumn.isKey());
-                                oldColumn.setNullable(newColumn.isNullable());
-                                oldColumn.setLength(newColumn.getLength());
-                                oldColumn.setPrecision(newColumn.getPrecision());
-                                oldColumn.setPattern(newColumn.getPattern());
-                                oldColumn.setType(newColumn.getType());
-                                oldColumn.setTalendType(newColumn.getTalendType());
-                                oldColumn.setComment(newColumn.getComment());
+                        metadataTable.setReadOnlyColumnPosition(table.getReadOnlyColumnPosition());
+
+                        // if all the table is read only then remove all columns to
+                        // set the one defined in the emf component
+                        // if (metadataTable.isReadOnly()) {
+                        // metadataTable.getListColumns().clear();
+                        // }
+                        for (int k = 0; k < table.getListColumns().size(); k++) {
+                            IMetadataColumn newColumn = table.getListColumns().get(k);
+                            IElement element = param.getElement();
+                            IMetadataColumn oldColumn = metadataTable.getColumn(newColumn.getLabel());
+                            if (element instanceof INode && oldColumn == null) {
+                                INode node = (INode) element;
+                                if (node.getComponent().getName().equals("tGenKeyHadoop")) { //$NON-NLS-1$
+                                    int lastIndexOf = node.getLabel().lastIndexOf("_"); //$NON-NLS-1$
+                                    oldColumn = metadataTable.getColumn(newColumn.getLabel()
+                                            + node.getLabel().substring(lastIndexOf));
+                                }
                             }
-                        } else { // if column doesn't exist, then add it.
-                            // if (newColumn.isReadOnly() || newColumn.isCustom() || table.isReadOnly()) {
-                            // metadataTable.getListColumns().add(newColumn);
-                            // }
+
+                            if (oldColumn != null) {
+                                // if column exists, then override read only /
+                                // custom
+                                oldColumn.setReadOnly(newColumn.isReadOnly());
+                                oldColumn.setCustom(newColumn.isCustom());
+                                oldColumn.setCustomId(newColumn.getCustomId());
+                                if (newColumn.isReadOnly()) { // if read only,
+                                    // override
+                                    // everything
+                                    oldColumn.setKey(newColumn.isKey());
+                                    oldColumn.setNullable(newColumn.isNullable());
+                                    oldColumn.setLength(newColumn.getLength());
+                                    oldColumn.setPrecision(newColumn.getPrecision());
+                                    oldColumn.setPattern(newColumn.getPattern());
+                                    oldColumn.setType(newColumn.getType());
+                                    oldColumn.setTalendType(newColumn.getTalendType());
+                                    oldColumn.setComment(newColumn.getComment());
+                                }
+                            }
                         }
                     }
                 }

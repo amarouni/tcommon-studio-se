@@ -153,12 +153,17 @@ Shell.MTrimmedWindow > .MTrimBar > .MToolBar.Draggable {
     jtab-close-button-line-width: 2px;
     
     jtab-chevron-color: #000000;
-    jtab-minimize-button-none-image: url('./default/pics/pic1.png');
-    jtab-minimize-button-hot-image: url('./default/pics/pic1.png');
-    jtab-minimize-button-selected-image: url('./default/pics/pic1.png');
-    jtab-maximize-button-none-image: url('./default/pics/pic2.png');
-    jtab-maximize-button-hot-image: url('./default/pics/pic2.png');
-    jtab-maximize-button-selected-image: url('./default/pics/pic2.png');
+    jtab-minimize-button-none-image: url('./default/pics/studio_6.0_view_minimize.png');
+    jtab-minimize-button-hot-image: url('./default/pics/studio_6.0_view_minimize.png');
+    jtab-minimize-button-selected-image: url('./default/pics/studio_6.0_view_minimize.png');
+    jtab-maximize-button-none-image: url('./default/pics/studio_6.0_expand_view.png');
+    jtab-maximize-button-hot-image: url('./default/pics/studio_6.0_expand_view.png');
+    jtab-maximize-button-selected-image: url('./default/pics/studio_6.0_expand_view.png');
+//    jtab-minimize-button-background-color:black;
+//jtab-minimize-button-forground-color:black;
+//jtab-maximize-button-forground-color:black;
+//jtab-maximize-button-background-color:black;
+    
 }
 
 .MPartStack>CTabItem {
@@ -485,6 +490,43 @@ CTabFolder#org-talend-rcp-multiPageEditor-footer CTabItem:selected {
     _t-widget-normal-shadow-color:white;
     _t-widget-dark-shadow-color:white;
     _t-list-background-color:#D3D3D3;
+
+.TalendPaletteCls {
+    tPalette-collapsed-forground-color:#ecf0f1;
+    tPalette-collapsed-background-color:#ecf0f1;
+    tPalette-mouseOver-forground-color1:yellow;
+    tPalette-mouseOver-forground-color2:yellow;
+    tPalette-mouseOver-forground-color3:yellow;
+    tPalette-mouseOver-background-color1:yellow;
+    tPalette-mouseOver-background-color2:yellow;
+    tPalette-mouseOver-background-color3:yellow;
+    tPalette-expanded-background-color:green;
+    
+    tPalette-collapse-topBorder-forground-lineColor1:#ecf0f1;
+    tPalette-collapse-topBorder-forground-lineColor2:gray;
+    tPalette-collapse-expanded-forground-lineColor:gray;
+    tPalette-collapse-notExpanded-forground-lineColor:gray;
+    tPalette-scroll-pane-list-border:0 0 0 0;
+    tPalette-scroll-pane-border:0 0 0 0;
+    
+//    tPalette-collapsed-forground-color:green;
+//    tPalette-collapsed-background-color:green;
+//    tPalette-list-background-color:green;
+//    tPalette-color-increment:10;
+//    tPalette-slider-palette-forground-color:green;
+//    tPalette-slider-palette-background-color:green;
+//    tPalette-entryEditPart-arrowWidth: 10;
+//    
+//    tPalette-entryEditPart-listBorder:0 0 0 0;
+//    tPalette-entryEditPart-iconBorder:0 0 0 0;
+//    tPalette-entryEditPart-forground-disableColor:green;
+//    tPalette-entryEditPart-selected-background-color:green;
+//    tPalette-entryEditPart-hover-background-color:green;
+//    tPalette-entryEditPart-borderFocus-forground-color:green;
+//    tPalette-entryEditPart-borderFocus-background-color:green;
+//    tPalette-entryEditPart-borderFocus-background-color:green;
+//    tPalette-drawerFigure-baseColor:green;
+    
 }
 
 /**************************************************

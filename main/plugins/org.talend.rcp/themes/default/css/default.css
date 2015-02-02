@@ -153,17 +153,12 @@ Shell.MTrimmedWindow > .MTrimBar > .MToolBar.Draggable {
     jtab-close-button-line-width: 2px;
     
     jtab-chevron-color: #000000;
-    jtab-minimize-button-none-image: url('./default/pics/studio_6.0_view_minimize.png');
-    jtab-minimize-button-hot-image: url('./default/pics/studio_6.0_view_minimize.png');
-    jtab-minimize-button-selected-image: url('./default/pics/studio_6.0_view_minimize.png');
-    jtab-maximize-button-none-image: url('./default/pics/studio_6.0_expand_view.png');
-    jtab-maximize-button-hot-image: url('./default/pics/studio_6.0_expand_view.png');
-    jtab-maximize-button-selected-image: url('./default/pics/studio_6.0_expand_view.png');
-//    jtab-minimize-button-background-color:black;
-//jtab-minimize-button-forground-color:black;
-//jtab-maximize-button-forground-color:black;
-//jtab-maximize-button-background-color:black;
-    
+//    jtab-minimize-button-none-image: url('./default/pics/studio_6.0_view_minimize.png');
+//    jtab-minimize-button-hot-image: url('./default/pics/studio_6.0_view_minimize.png');
+//    jtab-minimize-button-selected-image: url('./default/pics/studio_6.0_view_minimize.png');
+//    jtab-maximize-button-none-image: url('./default/pics/studio_6.0_expand_view.png');
+//    jtab-maximize-button-hot-image: url('./default/pics/studio_6.0_expand_view.png');
+//    jtab-maximize-button-selected-image: url('./default/pics/studio_6.0_expand_view.png');
 }
 
 .MPartStack>CTabItem {

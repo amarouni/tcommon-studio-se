@@ -1,16 +1,15 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: org.talend.themes.core
+Bundle-Name: Talend Theme Plug-in
 Bundle-SymbolicName: org.talend.themes.core;singleton:=true
-Bundle-Version: 1.0.0.qualifier
+Bundle-Version: 6.0.0.qualifier
 Bundle-Activator: org.talend.themes.core.TalendThemesCorePlugin
-Bundle-Vendor: Talend
+Bundle-Vendor: .Talend SA.
 Require-Bundle: org.eclipse.ui,
  org.eclipse.core.runtime,
  org.eclipse.e4.ui.css.core,
  org.eclipse.e4.ui.css.swt,
  org.eclipse.draw2d
-Bundle-RequiredExecutionEnvironment: JavaSE-1.7
 Bundle-ActivationPolicy: lazy
 Export-Package: org.talend.themes.core.elements.interfaces,
  org.talend.themes.core.elements.stylesettings,

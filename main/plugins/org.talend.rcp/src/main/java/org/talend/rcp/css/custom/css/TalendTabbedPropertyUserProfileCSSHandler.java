@@ -42,13 +42,13 @@ public class TalendTabbedPropertyUserProfileCSSHandler extends AbstractCSSProper
 
     private static final String BORDER_VISIBLE = "border-visible";
 
-    private static final String TITLE_FOREGROUND_COLOR = "_t-title-foreground";
+    private static final String TITLE_FOREGROUND_COLOR = "_t-title-foreground-color";
 
-    private static final String TITLE_BACKGROUND_COLOR = "_t-title-background";
+    private static final String TITLE_BACKGROUND_COLOR = "_t-title-background-color";
 
-    private static final String TITLE_BOTTOM_FOREGROUND_KEYLINE1_COLOR = "_t-title-bottom-foreground-keyline1";
+    private static final String TITLE_BOTTOM_FOREGROUND_KEYLINE1_COLOR = "_t-title-bottom-foreground-keyline1-color";
 
-    private static final String TITLE_BOTTOM_FOREGROUND_KEYLINE2_COLOR = "_t-title-bottom-foreground-keyline2";
+    private static final String TITLE_BOTTOM_FOREGROUND_KEYLINE2_COLOR = "_t-title-bottom-foreground-keyline2-color";
 
     @Override
     protected void applyCSSProperty(Control control, String property, CSSValue value, String pseudo, CSSEngine engine)

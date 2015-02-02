@@ -374,16 +374,16 @@
             name="border-visible">
       </property-name>
       <property-name
-            name="_t-title-foreground">
+            name="_t-title-foreground-color">
       </property-name>
       <property-name
-            name="_t-title-background">
+            name="_t-title-background-color">
       </property-name>
       <property-name
-            name="_t-title-bottom-foreground-keyline1">
+            name="_t-title-bottom-foreground-keyline1-color">
       </property-name>
       <property-name
-            name="_t-title-bottom-foreground-keyline2">
+            name="_t-title-bottom-foreground-keyline2-color">
       </property-name>
    </handler>
 </extension>

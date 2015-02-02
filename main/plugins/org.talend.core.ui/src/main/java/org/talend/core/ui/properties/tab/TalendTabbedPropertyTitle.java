@@ -32,7 +32,7 @@ import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetWidgetFactory;
 import org.talend.core.ui.CoreUIPlugin;
 
 /**
- * created by Talend on Feb 2, 2015 Detailled comment
+ * created by hcyi on Feb 2, 2015 Detailled comment
  *
  */
 public class TalendTabbedPropertyTitle extends Composite {
@@ -95,7 +95,12 @@ public class TalendTabbedPropertyTitle extends Composite {
         font = JFaceResources.getFont(TITLE_FONT);
 
         label = factory.createCLabel(this, BLANK);
-        label.setBackground(colorHelper.getTitleBackground());
+        if (colorHelper.getTitleBackground() == null) {
+            label.setBackground(new Color[] { factory.getColors().getColor(IFormColors.H_GRADIENT_END),
+                    factory.getColors().getColor(IFormColors.H_GRADIENT_START) }, new int[] { 100 }, true);
+        } else {
+            label.setBackground(colorHelper.getTitleBackground());
+        }
         label.setFont(font);
         label.setForeground(colorHelper.getTitleForeground());
         FormData data = new FormData();
@@ -115,7 +120,12 @@ public class TalendTabbedPropertyTitle extends Composite {
      */
     protected void drawTitleBackground(PaintEvent e) {
         Rectangle bounds = getClientArea();
-        label.setBackground(colorHelper.getTitleBackground());
+        if (colorHelper.getTitleBackground() == null) {
+            label.setBackground(new Color[] { factory.getColors().getColor(IFormColors.H_GRADIENT_END),
+                    factory.getColors().getColor(IFormColors.H_GRADIENT_START) }, new int[] { 100 }, true);
+        } else {
+            label.setBackground(colorHelper.getTitleBackground());
+        }
         Color bg = factory.getColors().getColor(IFormColors.H_GRADIENT_END);
         Color gbg = factory.getColors().getColor(IFormColors.H_GRADIENT_START);
         GC gc = e.gc;

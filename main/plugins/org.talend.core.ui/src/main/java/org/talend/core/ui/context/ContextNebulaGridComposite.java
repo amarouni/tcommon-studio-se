@@ -55,6 +55,7 @@ import org.talend.core.model.process.IContextManager;
 import org.talend.core.model.process.IContextParameter;
 import org.talend.core.model.properties.ContextItem;
 import org.talend.core.prefs.ITalendCorePrefConstants;
+import org.talend.core.ui.CoreUIPlugin;
 import org.talend.core.ui.context.ContextTreeTable.ContextTreeNode;
 import org.talend.core.ui.context.model.ContextTabChildModel;
 import org.talend.core.ui.context.model.table.ContextTableTabChildModel;
@@ -117,6 +118,8 @@ public class ContextNebulaGridComposite extends AbstractContextTabEditComposite 
      */
     public ContextNebulaGridComposite(Composite parent, IContextModelManager manager) {
         super(parent, SWT.NONE);
+        // CSS
+        CoreUIPlugin.setCSSClass(this, this.getClass().getSimpleName());
         modelManager = manager;
         buttonList = new ArrayList<Button>();
         this.helper = new ContextManagerHelper(manager.getContextManager());

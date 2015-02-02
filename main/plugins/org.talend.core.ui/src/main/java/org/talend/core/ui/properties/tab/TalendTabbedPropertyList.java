@@ -334,7 +334,7 @@ public class TalendTabbedPropertyList extends Composite {
                     e.gc.drawLine(bounds.width - 1, 0, bounds.width - 1, bounds.height - 1);
                 }
             } else {
-                e.gc.setBackground(colorHelper.getListBackground());
+                e.gc.setBackground(colorHelper.getWidgetBackground());
                 e.gc.fillRectangle(0, 0, bounds.width, bounds.height);
                 int textIndent = INDENT;
                 FontMetrics fm = e.gc.getFontMetrics();
@@ -431,7 +431,7 @@ public class TalendTabbedPropertyList extends Composite {
                     e.gc.drawLine(0, 2, bounds.width - 2, 2);
                 }
             } else {
-                e.gc.setBackground(colorHelper.getListBackground());
+                e.gc.setBackground(colorHelper.getWidgetBackground());
                 e.gc.fillRectangle(0, 0, bounds.width, bounds.height);
             }
 

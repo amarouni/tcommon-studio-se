@@ -271,7 +271,6 @@ public class TalendTabbedPropertyColorHelper {
     }
 
     private void initTitleGradient() {
-
         titleForeground = factory.getColors().getColor(IFormColors.TITLE);
         titleBottomForegroundKeyline1 = factory.getColors().getColor(IFormColors.H_BOTTOM_KEYLINE1);
         titleBottomForegroundKeyline2 = factory.getColors().getColor(IFormColors.H_BOTTOM_KEYLINE2);

@@ -490,6 +490,134 @@ CTabFolder#org-talend-rcp-multiPageEditor-footer CTabItem:selected {
     _t-widget-normal-shadow-color:white;
     _t-widget-dark-shadow-color:white;
     _t-list-background-color:#D3D3D3;
+}
+
+.TalendTabbedPropertyList{
+    border-visible: false;
+    color:black;
+    background-color:white;
+    _t-widget-normal-shadow-color:white;
+    _t-widget-dark-shadow-color:white;
+    _t-list-background-color:#D3D3D3;
+}
+
+.ProcessComposite Composite{
+  color: white;
+  background-color:white;
+}
+.ProcessComposite Group{
+  color: white;
+  background-color:white;
+}
+.ProcessComposite Button{
+  color: white;
+  background-color:white;
+}
+.ProcessComposite Text{
+  color: white;
+  background-color:white;
+}
+.ProcessComposite Label{
+  color: white;
+  background-color:white;
+}
+
+.TraceDebugProcessComposite Composite{
+  color: white;
+  background-color:white;
+}
+.DebugProcessComposite Composite{
+  color: white;
+  background-color:white;
+}
+.DebugProcessComposite Group{
+  color: white;
+  background-color:white;
+}
+.DebugProcessComposite Button{
+  color: white;
+  background-color:white;
+}
+.DebugProcessComposite Label{
+  color: white;
+  background-color:white;
+}
+.DebugProcessComposite Text{
+  color: white;
+  background-color:white;
+}
+.AdvanceSettingComposite Composite{
+  color: white;
+  background-color:white;
+}
+.AdvanceSettingComposite Button{
+  color: white;
+  background-color:white;
+}
+.AdvanceSettingComposite Group{
+  color: white;
+  background-color:white;
+}
+.AdvanceSettingComposite Text{
+  color: white;
+  background-color:white;
+}
+.AdvanceSettingComposite Table{
+  color: white;
+  background-color:white;
+}
+.AdvanceSettingComposite Label{
+    color: black;
+  background-color:white;
+}
+
+.TargetExecComposite Composite{
+  color: white;
+  background-color:white;
+}
+.MultipleThreadDynamicComposite Composite{
+  color: white;
+  background-color:white;
+}
+
+.ContextViewComposite Composite{
+  color: white;
+  background-color:white;
+}
+
+.BodyHeader Composite{
+  color: white;
+  background-color:white;
+}
+.BodyHeader Text{
+  color: white;
+  background-color:white;
+}
+.HeaderComposite Composite{
+  color: white;
+  background-color:white;
+}
+.HeaderComposite Text{
+  color: white;
+  background-color:white;
+}
+.ExecuteJobComposite Composite{
+  color: white;
+  background-color:white;
+}
+.ExecuteJobComposite Text{
+  color: white;
+  background-color:white;
+}
+
+.TalendTabbedPropertyComposite CLabel{
+  color: black;
+  background-color:white;
+}
+.TalendTabbedPropertyTitle CLabel{
+  color: black;
+  background-color:white;
+}
 
 .TalendPaletteCls {
     tPalette-collapsed-forground-color:#ecf0f1;

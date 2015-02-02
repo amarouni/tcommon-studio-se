@@ -13,7 +13,6 @@
 package org.talend.themes.core.elements.stylesettings;
 
 import java.util.HashMap;
-import java.util.Map;
 
 import org.eclipse.draw2d.Border;
 import org.eclipse.draw2d.ColorConstants;
@@ -27,8 +26,6 @@ import org.talend.themes.core.elements.interfaces.ICSSStylingChangedListener;
  *
  */
 public class TalendPaletteCSSStyleSetting extends CommonCSSStyleSetting {
-
-    protected Map<Color, Color> needDisposedColors;
 
     protected ICSSStylingChangedListener stylingChangeListener;
 
@@ -142,34 +139,6 @@ public class TalendPaletteCSSStyleSetting extends CommonCSSStyleSetting {
             // collapseTopBorderForgroundLineColor2 = new Color(null, ColorConstants.white.getRGB());
             // collapseExpandedLineForgroundColor = new Color(null, ColorConstants.buttonDarker.getRGB());
             // collapseNotExpandedLineForgroundColor = new Color(null, ColorConstants.white.getRGB());
-        }
-    }
-
-    public void disposeRelatedColor(Color color) {
-        Color oldColor = needDisposedColors.get(color);
-        if (oldColor != null) {
-            if (!oldColor.isDisposed()) {
-                oldColor.dispose();
-            }
-            needDisposedColors.remove(color);
-        }
-    }
-
-    public void disposeRelatedBothColors(Color oldColor, Color newColor) {
-        Color needDisposedOldColor = null;
-        if (oldColor != null) {
-            needDisposedOldColor = needDisposedColors.get(oldColor);
-        }
-        if (needDisposedOldColor != null) {
-            if (!needDisposedOldColor.isDisposed()) {
-                oldColor.dispose();
-            }
-            if (!oldColor.isDisposed()) {
-                oldColor.dispose();
-            }
-            needDisposedColors.remove(oldColor);
-        } else {
-            needDisposedColors.put(newColor, oldColor);
         }
     }
 

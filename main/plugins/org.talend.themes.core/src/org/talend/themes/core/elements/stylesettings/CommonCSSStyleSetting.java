@@ -12,14 +12,47 @@
 // ============================================================================
 package org.talend.themes.core.elements.stylesettings;
 
+import java.util.Map;
+
 import org.eclipse.draw2d.Border;
 import org.eclipse.draw2d.geometry.Insets;
+import org.eclipse.swt.graphics.Color;
 
 /**
  * created by cmeng on Jan 30, 2015 Detailled comment
  *
  */
 public class CommonCSSStyleSetting {
+
+    protected Map<Color, Color> needDisposedColors;
+
+    public void disposeRelatedColor(Color color) {
+        Color oldColor = needDisposedColors.get(color);
+        if (oldColor != null) {
+            if (!oldColor.isDisposed()) {
+                oldColor.dispose();
+            }
+            needDisposedColors.remove(color);
+        }
+    }
+
+    public void disposeRelatedBothColors(Color oldColor, Color newColor) {
+        Color needDisposedOldColor = null;
+        if (oldColor != null) {
+            needDisposedOldColor = needDisposedColors.get(oldColor);
+        }
+        if (needDisposedOldColor != null) {
+            if (!needDisposedOldColor.isDisposed()) {
+                oldColor.dispose();
+            }
+            if (!oldColor.isDisposed()) {
+                oldColor.dispose();
+            }
+            needDisposedColors.remove(oldColor);
+        } else {
+            needDisposedColors.put(newColor, oldColor);
+        }
+    }
 
     public static void copyBorderSetting(Border from, Border to) {
         Insets toInsets = to.getInsets(null);

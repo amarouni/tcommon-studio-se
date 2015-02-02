@@ -349,4 +349,52 @@
          label="Talend default theme">
    </theme>
 </extension>
+<extension
+      point="org.eclipse.e4.ui.css.core.propertyHandler">
+   <handler
+         adapter="org.talend.rcp.css.custom.css.CSSUserProfileElementAdapter"
+         composite="true"
+         handler="org.talend.rcp.css.custom.css.TalendTabbedPropertyUserProfileCSSHandler">
+      <property-name
+            name="color">
+      </property-name>
+      <property-name
+            name="background-color">
+      </property-name>
+      <property-name
+            name="_t-widget-normal-shadow-color">
+      </property-name>
+      <property-name
+            name="_t-widget-dark-shadow-color">
+      </property-name>
+      <property-name
+            name="_t-list-background-color">
+      </property-name>
+      <property-name
+            name="border-visible">
+      </property-name>
+      <property-name
+            name="_t-title-foreground">
+      </property-name>
+      <property-name
+            name="_t-title-background">
+      </property-name>
+      <property-name
+            name="_t-title-bottom-foreground-keyline1">
+      </property-name>
+      <property-name
+            name="_t-title-bottom-foreground-keyline2">
+      </property-name>
+   </handler>
+</extension>
+<extension
+      point="org.eclipse.e4.ui.css.core.elementProvider">
+   <provider
+         class="org.talend.rcp.css.custom.css.CSSSWTElementProvider">
+      <widget
+            class="org.talend.core.ui.properties.tab.TalendTabbedPropertyList"></widget>
+      <widget
+            class="org.talend.core.ui.properties.tab.TalendTabbedPropertyTitle"></widget>
+   </provider>
+</extension>
 </plugin>

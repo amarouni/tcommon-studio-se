@@ -26,7 +26,6 @@ import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.layout.FormLayout;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.ui.internal.views.properties.tabbed.view.TabbedPropertyTitle;
 import org.eclipse.ui.views.properties.tabbed.ITabItem;
 import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetWidgetFactory;
 
@@ -40,7 +39,7 @@ public class HorizontalTabFactory {
 
     private TalendTabbedPropertyComposite tabbedPropertyComposite;
 
-    private TabbedPropertyTitle title;
+    private TalendTabbedPropertyTitle title;
 
     private TalendTabbedPropertyViewer tabbedPropertyViewer;
 
@@ -133,6 +132,7 @@ public class HorizontalTabFactory {
      */
     private class TabbedPropertySheetPageLabelProvider extends LabelProvider {
 
+        @Override
         public String getText(Object element) {
             if (element instanceof ITabItem) {
                 return ((ITabItem) element).getText();
@@ -154,6 +154,7 @@ public class HorizontalTabFactory {
          * 
          * @see org.eclipse.jface.viewers.IStructuredContentProvider#getElements(java.lang.Object)
          */
+        @Override
         public Object[] getElements(Object inputElement) {
             if (!(inputElement instanceof List)) {
                 return (Object[]) inputElement;
@@ -166,6 +167,7 @@ public class HorizontalTabFactory {
          * 
          * @see org.eclipse.jface.viewers.IContentProvider#dispose()
          */
+        @Override
         public void dispose() {
 
         }
@@ -176,6 +178,7 @@ public class HorizontalTabFactory {
          * @see org.eclipse.jface.viewers.IContentProvider#inputChanged(org.eclipse.jface.viewers.Viewer,
          * java.lang.Object, java.lang.Object)
          */
+        @Override
         public void inputChanged(Viewer viewer, Object oldInput, Object newInput) {
 
         }

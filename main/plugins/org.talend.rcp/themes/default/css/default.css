@@ -29,13 +29,13 @@ Shell.MTrimmedWindow {
 
 #org-eclipse-ui-main-toolbar > .Draggable {
     handle-image:
-        url(jeeeyul://drag-handle?height=22&background-color=#ecf0f1&embossed=false);
+        url('jeeeyul://drag-handle?height=22&background-color=#ecf0f1&embossed=false');
 }
 
 #org-eclipse-ui-main-toolbar > .TrimStack {
     frame-image: none;
     handle-image:
-        url(jeeeyul://drag-handle?height=22&background-color=#ecf0f1&embossed=false);
+        url('jeeeyul://drag-handle?height=22&background-color=#ecf0f1&embossed=false');
 }
 
 #org-eclipse-ui-main-toolbar #PerspectiveSwitcher {
@@ -69,13 +69,13 @@ Shell.MTrimmedWindow {
 
 #org-eclipse-ui-trim-status .Draggable {
     handle-image:
-        url(jeeeyul://drag-handle?height=22&background-color=#ecf0f1&embossed=false);
+        url('jeeeyul://drag-handle?height=22&background-color=#ecf0f1&embossed=false');
 }
 
 #org-eclipse-ui-trim-status .TrimStack {
     handle-image:
-        url(jeeeyul://drag-handle?height=22&background-color=#ecf0f1&embossed=false);
-    frame-image: url(jeeeyul://frame?background-color=#ecf0f1);
+        url('jeeeyul://drag-handle?height=22&background-color=#ecf0f1&embossed=false');
+    frame-image: url('jeeeyul://frame?background-color=#ecf0f1');
     frame-cuts: 4px 2px 5px 16px;
 }
 
@@ -85,15 +85,15 @@ Shell.MTrimmedWindow {
  * Trim Stack
  **************************************************/
 Shell.MTrimmedWindow > .MTrimBar > .TrimStack {
-    frame-image: url(jeeeyul://frame?background-color=#ecf0f1);
+    frame-image: url('jeeeyul://frame?background-color=#ecf0f1');
     frame-cuts: 4px 2px 5px 16px;
     handle-image:
-        url(jeeeyul://drag-handle?height=22&background-color=#ecf0f1&embossed=false);
+        url('jeeeyul://drag-handle?height=22&background-color=#ecf0f1&embossed=false');
 }
 
 Shell.MTrimmedWindow > .MTrimBar > .MToolBar.Draggable {
     handle-image:
-        url(jeeeyul://drag-handle?height=22&background-color=#ecf0f1&embossed=false);
+        url('jeeeyul://drag-handle?height=22&background-color=#ecf0f1&embossed=false');
 }
 
 
@@ -475,6 +475,16 @@ CTabFolder#org-talend-rcp-multiPageEditor-footer CTabItem {
 CTabFolder#org-talend-rcp-multiPageEditor-footer CTabItem:selected {
     background-color: #474747 #474747 80%  #a4f081 #a4f081 80% 100%;
     color: white;
+}
+
+
+.TalendTabbedPropertyList{
+    border-visible: false;
+    color:black;
+    background-color:white;
+    _t-widget-normal-shadow-color:white;
+    _t-widget-dark-shadow-color:white;
+    _t-list-background-color:#D3D3D3;
 }
 
 /**************************************************

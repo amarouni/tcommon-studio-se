@@ -133,6 +133,7 @@ public class CoreUIPlugin extends AbstractUIPlugin {
         IStylingEngine cssStylingEngine = getCSSStylingEngine();
         if (cssStylingEngine != null) {
             cssStylingEngine.setClassname(widget, className);
+            cssStylingEngine.style(widget);
         }
     }
 }

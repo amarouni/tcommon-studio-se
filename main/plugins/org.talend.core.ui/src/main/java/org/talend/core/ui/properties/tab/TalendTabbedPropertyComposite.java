@@ -23,10 +23,10 @@ import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Display;
-import org.eclipse.ui.internal.views.properties.tabbed.view.TabbedPropertyTitle;
 import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetWidgetFactory;
 import org.talend.commons.ui.runtime.image.EImage;
 import org.talend.commons.ui.runtime.image.ImageProvider;
+import org.talend.core.ui.CoreUIPlugin;
 import org.talend.core.ui.i18n.Messages;
 
 /**
@@ -43,7 +43,7 @@ public class TalendTabbedPropertyComposite extends Composite {
 
     private ScrolledComposite scrolledComposite;
 
-    private TabbedPropertyTitle title;
+    private TalendTabbedPropertyTitle title;
 
     private TalendTabbedPropertyList listComposite;
 
@@ -67,6 +67,8 @@ public class TalendTabbedPropertyComposite extends Composite {
     public TalendTabbedPropertyComposite(Composite parent, TabbedPropertySheetWidgetFactory factory, boolean displayTitle,
             boolean displayCompactToolbar) {
         super(parent, SWT.NO_FOCUS);
+        // CSS
+        CoreUIPlugin.setCSSClass(this, this.getClass().getSimpleName());
         this.factory = factory;
         this.displayTitle = displayTitle;
         this.displayCompactToolbar = displayCompactToolbar;
@@ -95,7 +97,7 @@ public class TalendTabbedPropertyComposite extends Composite {
      */
     protected void createMainContents() {
         if (displayTitle) {
-            title = new TabbedPropertyTitle(mainComposite, factory);
+            title = new TalendTabbedPropertyTitle(mainComposite, factory);
 
             FormData data = new FormData();
             data.left = new FormAttachment(0, 0);
@@ -218,7 +220,7 @@ public class TalendTabbedPropertyComposite extends Composite {
      * 
      * @return the tabbed property title bar or <code>null</code> if not used.
      */
-    public TabbedPropertyTitle getTitle() {
+    public TalendTabbedPropertyTitle getTitle() {
         return title;
     }
 

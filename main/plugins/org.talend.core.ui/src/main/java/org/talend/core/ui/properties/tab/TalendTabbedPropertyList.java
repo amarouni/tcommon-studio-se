@@ -37,24 +37,21 @@ import org.eclipse.swt.events.PaintEvent;
 import org.eclipse.swt.events.PaintListener;
 import org.eclipse.swt.events.TraverseEvent;
 import org.eclipse.swt.events.TraverseListener;
-import org.eclipse.swt.graphics.Color;
 import org.eclipse.swt.graphics.FontMetrics;
 import org.eclipse.swt.graphics.GC;
 import org.eclipse.swt.graphics.Point;
-import org.eclipse.swt.graphics.RGB;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.layout.FormLayout;
 import org.eclipse.swt.widgets.Canvas;
 import org.eclipse.swt.widgets.Composite;
-import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Event;
 import org.eclipse.swt.widgets.Listener;
 import org.eclipse.swt.widgets.Shell;
-import org.eclipse.ui.forms.FormColors;
 import org.eclipse.ui.views.properties.tabbed.ITabItem;
 import org.eclipse.ui.views.properties.tabbed.TabbedPropertySheetWidgetFactory;
+import org.talend.core.ui.CoreUIPlugin;
 
 /**
  * yzhang class global comment. Detailled comment <br/>
@@ -88,33 +85,7 @@ public class TalendTabbedPropertyList extends Composite {
 
     private int tabsThatFitInComposite = NONE;
 
-    private Color widgetForeground;
-
-    private Color widgetBackground;
-
-    private Color widgetNormalShadow;
-
-    private Color widgetDarkShadow;
-
-    private Color listBackground;
-
-    private Color hoverGradientStart;
-
-    private Color hoverGradientEnd;
-
-    private Color defaultGradientStart;
-
-    private Color defaultGradientEnd;
-
-    private Color indentedDefaultBackground;
-
-    private Color indentedHoverBackground;
-
-    private Color navigationElementShadowStroke;
-
-    private Color bottomNavigationElementShadowStroke1;
-
-    private Color bottomNavigationElementShadowStroke2;
+    private TalendTabbedPropertyColorHelper colorHelper;
 
     private TabbedPropertySheetWidgetFactory factory;
 
@@ -214,14 +185,18 @@ public class TalendTabbedPropertyList extends Composite {
              * draw the top two lines of the tab, same for selected, hover and default
              */
             Rectangle bounds = getBounds();
-            e.gc.setForeground(widgetNormalShadow);
-            e.gc.drawLine(0, 0, bounds.width - 1, 0);
-            e.gc.setForeground(listBackground);
-            e.gc.drawLine(0, 1, bounds.width - 1, 1);
+            e.gc.setForeground(colorHelper.getWidgetNormalShadow());
+            if (colorHelper.isVisibleBorder()) {
+                e.gc.drawLine(0, 0, bounds.width - 1, 0);
+            }
+            e.gc.setForeground(colorHelper.getListBackground());
+            if (colorHelper.isVisibleBorder()) {
+                e.gc.drawLine(0, 1, bounds.width - 1, 1);
+            }
 
             /* draw the fill in the tab */
             if (selected) {
-                e.gc.setBackground(listBackground);
+                e.gc.setBackground(colorHelper.getListBackground());
                 e.gc.fillRectangle(0, 2, bounds.width, bounds.height - 1);
 
                 if (tab.hasSubItems()) {
@@ -233,24 +208,26 @@ public class TalendTabbedPropertyList extends Composite {
                     }
                 }
             } else if (hover && tab.isIndented()) {
-                e.gc.setBackground(indentedHoverBackground);
+                e.gc.setBackground(colorHelper.getIndentedHoverBackground());
                 e.gc.fillRectangle(0, 2, bounds.width - 1, bounds.height - 1);
             } else if (hover) {
-                e.gc.setForeground(hoverGradientStart);
-                e.gc.setBackground(hoverGradientEnd);
+                e.gc.setForeground(colorHelper.getHoverGradientStart());
+                e.gc.setBackground(colorHelper.getHoverGradientEnd());
                 e.gc.fillGradientRectangle(0, 2, bounds.width - 1, bounds.height - 1, true);
             } else if (tab.isIndented()) {
-                e.gc.setBackground(indentedDefaultBackground);
+                e.gc.setBackground(colorHelper.getIndentedDefaultBackground());
                 e.gc.fillRectangle(0, 2, bounds.width - 1, bounds.height - 1);
             } else {
-                e.gc.setForeground(defaultGradientStart);
-                e.gc.setBackground(defaultGradientEnd);
-                e.gc.fillGradientRectangle(0, 2, bounds.width - 1, bounds.height - 1, true);
+                // e.gc.setForeground(colorHelper.getDefaultGradientStart());
+                // e.gc.setBackground(colorHelper.getDefaultGradientEnd());
+                // e.gc.fillGradientRectangle(0, 2, bounds.width - 1, bounds.height - 1, true);
             }
 
             if (!selected) {
-                e.gc.setForeground(widgetNormalShadow);
-                e.gc.drawLine(bounds.width - 1, 1, bounds.width - 1, bounds.height + 1);
+                e.gc.setForeground(colorHelper.getWidgetNormalShadow());
+                if (colorHelper.isVisibleBorder()) {
+                    e.gc.drawLine(bounds.width - 1, 1, bounds.width - 1, bounds.height + 1);
+                }
             }
 
             int textIndent = INDENT;
@@ -272,7 +249,7 @@ public class TalendTabbedPropertyList extends Composite {
             }
 
             /* draw the text */
-            e.gc.setForeground(widgetForeground);
+            e.gc.setForeground(colorHelper.getWidgetForeground());
             if (selected) {
                 /* selected tab is bold font */
                 e.gc.setFont(JFaceResources.getFontRegistry().getBold(JFaceResources.DEFAULT_FONT));
@@ -281,8 +258,10 @@ public class TalendTabbedPropertyList extends Composite {
 
             /* draw the bottom line on the tab for selected and default */
             if (!hover) {
-                e.gc.setForeground(listBackground);
-                e.gc.drawLine(0, bounds.height - 1, bounds.width - 2, bounds.height - 1);
+                e.gc.setForeground(colorHelper.getListBackground());
+                if (colorHelper.isVisibleBorder()) {
+                    e.gc.drawLine(0, bounds.height - 1, bounds.width - 2, bounds.height - 1);
+                }
             }
         }
 
@@ -344,43 +323,47 @@ public class TalendTabbedPropertyList extends Composite {
          * @param e the paint event.
          */
         private void paint(PaintEvent e) {
-            e.gc.setBackground(widgetBackground);
-            e.gc.setForeground(widgetForeground);
+            e.gc.setBackground(colorHelper.getWidgetBackground());
+            e.gc.setForeground(colorHelper.getWidgetForeground());
             Rectangle bounds = getBounds();
 
             if (elements.length != 0) {
                 e.gc.fillRectangle(0, 0, bounds.width, bounds.height);
-                e.gc.setForeground(widgetNormalShadow);
-                e.gc.drawLine(bounds.width - 1, 0, bounds.width - 1, bounds.height - 1);
+                e.gc.setForeground(colorHelper.getWidgetNormalShadow());
+                if (colorHelper.isVisibleBorder()) {
+                    e.gc.drawLine(bounds.width - 1, 0, bounds.width - 1, bounds.height - 1);
+                }
             } else {
-                e.gc.setBackground(listBackground);
+                e.gc.setBackground(colorHelper.getListBackground());
                 e.gc.fillRectangle(0, 0, bounds.width, bounds.height);
                 int textIndent = INDENT;
                 FontMetrics fm = e.gc.getFontMetrics();
                 int height = fm.getHeight();
                 int textMiddle = (bounds.height - height) / 2;
-                e.gc.setForeground(widgetForeground);
+                e.gc.setForeground(colorHelper.getWidgetForeground());
                 String propertiesNotAvailable = PROPERTIES_NOT_AVAILABLE;
                 e.gc.drawText(propertiesNotAvailable, textIndent, textMiddle);
             }
 
             if (isUpScrollRequired()) {
-                e.gc.setForeground(widgetDarkShadow);
+                e.gc.setForeground(colorHelper.getWidgetDarkShadow());
                 int middle = bounds.width / 2;
-                e.gc.drawLine(middle + 1, 3, middle + 5, 7);
-                e.gc.drawLine(middle, 3, middle - 4, 7);
-                e.gc.drawLine(middle - 3, 7, middle + 4, 7);
+                if (colorHelper.isVisibleBorder()) {
+                    e.gc.drawLine(middle + 1, 3, middle + 5, 7);
+                    e.gc.drawLine(middle, 3, middle - 4, 7);
+                    e.gc.drawLine(middle - 3, 7, middle + 4, 7);
 
-                e.gc.setForeground(listBackground);
-                e.gc.drawLine(middle, 4, middle + 1, 4);
-                e.gc.drawLine(middle - 1, 5, middle + 2, 5);
-                e.gc.drawLine(middle - 2, 6, middle + 3, 6);
+                    e.gc.setForeground(colorHelper.getListBackground());
+                    e.gc.drawLine(middle, 4, middle + 1, 4);
+                    e.gc.drawLine(middle - 1, 5, middle + 2, 5);
+                    e.gc.drawLine(middle - 2, 6, middle + 3, 6);
 
-                e.gc.setForeground(widgetNormalShadow);
-                e.gc.drawLine(0, 0, bounds.width - 2, 0);
-                e.gc.setForeground(navigationElementShadowStroke);
-                e.gc.drawLine(0, 1, bounds.width - 2, 1);
-                e.gc.drawLine(0, bounds.height - 1, bounds.width - 2, bounds.height - 1);
+                    e.gc.setForeground(colorHelper.getWidgetNormalShadow());
+                    e.gc.drawLine(0, 0, bounds.width - 2, 0);
+                    e.gc.setForeground(colorHelper.getNavigationElementShadowStroke());
+                    e.gc.drawLine(0, 1, bounds.width - 2, 1);
+                    e.gc.drawLine(0, bounds.height - 1, bounds.width - 2, bounds.height - 1);
+                }
             }
         }
     }
@@ -428,43 +411,56 @@ public class TalendTabbedPropertyList extends Composite {
          * @param e the paint event.
          */
         private void paint(PaintEvent e) {
-            e.gc.setBackground(widgetBackground);
-            e.gc.setForeground(widgetForeground);
+            e.gc.setBackground(colorHelper.getWidgetBackground());
+            e.gc.setForeground(colorHelper.getWidgetForeground());
             Rectangle bounds = getBounds();
 
             if (elements.length != 0) {
                 e.gc.fillRectangle(0, 0, bounds.width, bounds.height);
-                e.gc.setForeground(widgetNormalShadow);
-                e.gc.drawLine(bounds.width - 1, 0, bounds.width - 1, bounds.height - 1);
-                e.gc.drawLine(0, 0, bounds.width - 1, 0);
-
-                e.gc.setForeground(bottomNavigationElementShadowStroke1);
-                e.gc.drawLine(0, 1, bounds.width - 2, 1);
-                e.gc.setForeground(bottomNavigationElementShadowStroke2);
-                e.gc.drawLine(0, 2, bounds.width - 2, 2);
+                e.gc.setForeground(colorHelper.getWidgetNormalShadow());
+                if (colorHelper.isVisibleBorder()) {
+                    e.gc.drawLine(bounds.width - 1, 0, bounds.width - 1, bounds.height - 1);
+                    e.gc.drawLine(0, 0, bounds.width - 1, 0);
+                }
+                e.gc.setForeground(colorHelper.getBottomNavigationElementShadowStroke1());
+                if (colorHelper.isVisibleBorder()) {
+                    e.gc.drawLine(0, 1, bounds.width - 2, 1);
+                }
+                e.gc.setForeground(colorHelper.getBottomNavigationElementShadowStroke2());
+                if (colorHelper.isVisibleBorder()) {
+                    e.gc.drawLine(0, 2, bounds.width - 2, 2);
+                }
             } else {
-                e.gc.setBackground(listBackground);
+                e.gc.setBackground(colorHelper.getListBackground());
                 e.gc.fillRectangle(0, 0, bounds.width, bounds.height);
             }
 
             if (isDownScrollRequired()) {
-                e.gc.setForeground(widgetDarkShadow);
+                e.gc.setForeground(colorHelper.getWidgetDarkShadow());
                 int middle = bounds.width / 2;
                 int bottom = bounds.height - 3;
-                e.gc.drawLine(middle + 1, bottom, middle + 5, bottom - 4);
-                e.gc.drawLine(middle, bottom, middle - 4, bottom - 4);
-                e.gc.drawLine(middle - 3, bottom - 4, middle + 4, bottom - 4);
+                if (colorHelper.isVisibleBorder()) {
+                    e.gc.drawLine(middle + 1, bottom, middle + 5, bottom - 4);
+                    e.gc.drawLine(middle, bottom, middle - 4, bottom - 4);
+                    e.gc.drawLine(middle - 3, bottom - 4, middle + 4, bottom - 4);
+                }
 
-                e.gc.setForeground(listBackground);
-                e.gc.drawLine(middle, bottom - 1, middle + 1, bottom - 1);
-                e.gc.drawLine(middle - 1, bottom - 2, middle + 2, bottom - 2);
-                e.gc.drawLine(middle - 2, bottom - 3, middle + 3, bottom - 3);
+                e.gc.setForeground(colorHelper.getListBackground());
+                if (colorHelper.isVisibleBorder()) {
+                    e.gc.drawLine(middle, bottom - 1, middle + 1, bottom - 1);
+                    e.gc.drawLine(middle - 1, bottom - 2, middle + 2, bottom - 2);
+                    e.gc.drawLine(middle - 2, bottom - 3, middle + 3, bottom - 3);
+                }
 
-                e.gc.setForeground(widgetNormalShadow);
-                e.gc.drawLine(0, bottom - 7, bounds.width - 2, bottom - 7);
-                e.gc.setForeground(navigationElementShadowStroke);
-                e.gc.drawLine(0, bottom + 2, bounds.width - 2, bottom + 2);
-                e.gc.drawLine(0, bottom - 6, bounds.width - 2, bottom - 6);
+                e.gc.setForeground(colorHelper.getWidgetNormalShadow());
+                if (colorHelper.isVisibleBorder()) {
+                    e.gc.drawLine(0, bottom - 7, bounds.width - 2, bottom - 7);
+                }
+                e.gc.setForeground(colorHelper.getNavigationElementShadowStroke());
+                if (colorHelper.isVisibleBorder()) {
+                    e.gc.drawLine(0, bottom + 2, bounds.width - 2, bottom + 2);
+                    e.gc.drawLine(0, bottom - 6, bounds.width - 2, bottom - 6);
+                }
             }
         }
     }
@@ -487,9 +483,11 @@ public class TalendTabbedPropertyList extends Composite {
     public TalendTabbedPropertyList(Composite parent, TabbedPropertySheetWidgetFactory factory) {
         super(parent, SWT.NO_FOCUS);
         this.factory = factory;
+        colorHelper = new TalendTabbedPropertyColorHelper(factory);
         removeAll();
         setLayout(new FormLayout());
-        initColours();
+        CoreUIPlugin.setCSSClass(this, this.getClass().getSimpleName());
+        // initColours();
         initAccessible();
         topNavigationElement = new TopNavigationElement(this);
         bottomNavigationElement = new BottomNavigationElement(this);
@@ -576,6 +574,10 @@ public class TalendTabbedPropertyList extends Composite {
      */
     public int getSelectionIndex() {
         return selectedElementIndex;
+    }
+
+    public TalendTabbedPropertyColorHelper getColorHelper() {
+        return this.colorHelper;
     }
 
     /**
@@ -807,81 +809,17 @@ public class TalendTabbedPropertyList extends Composite {
         return point;
     }
 
-    /**
-     * Initialize the colours used in the list.
-     */
-    private void initColours() {
-        /*
-         * Colour 3 COLOR_LIST_BACKGROUND
-         */
-        listBackground = Display.getCurrent().getSystemColor(SWT.COLOR_LIST_BACKGROUND);
-
-        /*
-         * Colour 13 COLOR_WIDGET_BACKGROUND
-         */
-        widgetBackground = Display.getCurrent().getSystemColor(SWT.COLOR_WIDGET_BACKGROUND);
-
-        /*
-         * Colour 15 COLOR_WIDGET_DARK_SHADOW
-         */
-        widgetDarkShadow = Display.getCurrent().getSystemColor(SWT.COLOR_WIDGET_DARK_SHADOW);
-
-        /*
-         * Colour 16 COLOR_WIDGET_FOREGROUND
-         */
-        widgetForeground = Display.getCurrent().getSystemColor(SWT.COLOR_WIDGET_FOREGROUND);
-
-        /*
-         * Colour 19 COLOR_WIDGET_NORMAL_SHADOW
-         */
-        widgetNormalShadow = Display.getCurrent().getSystemColor(SWT.COLOR_WIDGET_NORMAL_SHADOW);
-
-        RGB infoBackground = Display.getCurrent().getSystemColor(SWT.COLOR_INFO_BACKGROUND).getRGB();
-        RGB white = Display.getCurrent().getSystemColor(SWT.COLOR_WHITE).getRGB();
-        RGB black = Display.getCurrent().getSystemColor(SWT.COLOR_BLACK).getRGB();
-
-        /*
-         * gradient in the default tab: start colour WIDGET_NORMAL_SHADOW 100% + white 20% + INFO_BACKGROUND 60% end
-         * colour WIDGET_NORMAL_SHADOW 100% + INFO_BACKGROUND 40%
-         */
-        defaultGradientStart = factory.getColors().createColor("TabbedPropertyList.defaultTabGradientStart", //$NON-NLS-1$
-                FormColors.blend(infoBackground, FormColors.blend(white, widgetNormalShadow.getRGB(), 20), 60));
-        defaultGradientEnd = factory.getColors().createColor("TabbedPropertyList.defaultTabGradientEnd", //$NON-NLS-1$
-                FormColors.blend(infoBackground, widgetNormalShadow.getRGB(), 40));
-
-        navigationElementShadowStroke = factory.getColors().createColor("TabbedPropertyList.shadowStroke", //$NON-NLS-1$
-                FormColors.blend(white, widgetNormalShadow.getRGB(), 55));
-        bottomNavigationElementShadowStroke1 = factory.getColors().createColor("TabbedPropertyList.tabShadowStroke1", //$NON-NLS-1$
-                FormColors.blend(black, widgetBackground.getRGB(), 10));
-        bottomNavigationElementShadowStroke2 = factory.getColors().createColor("TabbedPropertyList.tabShadowStroke2", //$NON-NLS-1$
-                FormColors.blend(black, widgetBackground.getRGB(), 5));
-
-        /*
-         * gradient in the hover tab: start colour WIDGET_BACKGROUND 100% + white 20% end colour WIDGET_BACKGROUND 100%
-         * + WIDGET_NORMAL_SHADOW 10%
-         */
-        hoverGradientStart = factory.getColors().createColor("TabbedPropertyList.hoverBackgroundGradientStart", //$NON-NLS-1$
-                FormColors.blend(white, widgetBackground.getRGB(), 20));
-        hoverGradientEnd = factory.getColors().createColor("TabbedPropertyList.hoverBackgroundGradientEnd", //$NON-NLS-1$
-                FormColors.blend(widgetNormalShadow.getRGB(), widgetBackground.getRGB(), 10));
-
-        indentedDefaultBackground = factory.getColors().createColor("TabbedPropertyList.indentedDefaultBackground", //$NON-NLS-1$
-                FormColors.blend(white, widgetBackground.getRGB(), 10));
-        indentedHoverBackground = factory.getColors().createColor("TabbedPropertyList.indentedHoverBackground", //$NON-NLS-1$
-                FormColors.blend(white, widgetBackground.getRGB(), 75));
-    }
-
     @Override
     public void dispose() {
-        hoverGradientStart.dispose();
-        hoverGradientEnd.dispose();
-        defaultGradientStart.dispose();
-        defaultGradientEnd.dispose();
-        indentedDefaultBackground.dispose();
-        indentedHoverBackground.dispose();
-        navigationElementShadowStroke.dispose();
-        bottomNavigationElementShadowStroke1.dispose();
-        bottomNavigationElementShadowStroke2.dispose();
+        colorHelper.getHoverGradientStart().dispose();
+        colorHelper.getHoverGradientEnd().dispose();
+        colorHelper.getDefaultGradientStart().dispose();
+        colorHelper.getDefaultGradientEnd().dispose();
+        colorHelper.getIndentedDefaultBackground().dispose();
+        colorHelper.getIndentedHoverBackground().dispose();
+        colorHelper.getNavigationElementShadowStroke().dispose();
+        colorHelper.getBottomNavigationElementShadowStroke1().dispose();
+        colorHelper.getBottomNavigationElementShadowStroke2().dispose();
         super.dispose();
     }
 

@@ -41,7 +41,7 @@ public class ExceptionHandler {
     public static void process(Throwable ex, Priority priority) {
         CommonExceptionHandler.process(ex, priority);
 
-        if (priority == Level.FATAL) {
+        if (priority == Level.FATAL && !CommonsPlugin.isHeadless()) {
             ExceptionService service = CommonsPlugin.getDefault().getExceptionService();
             if (service != null) {
                 service.showExceptionInMessgeBox(ex);

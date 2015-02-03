@@ -296,14 +296,12 @@ public class DelimitedFileStep2Form extends AbstractDelimitedFileStepForm implem
      * @param height
      */
     private void addGroupDelimitedFileSettings(final Composite mainComposite, final int width, final int height) {
-        Group group = Form.createGroup(mainComposite, 2, Messages.getString("FileStep2.groupDelimitedFileSettings"), height); //$NON-NLS-1$
+        Group group = Form.createGroup(mainComposite, 2, Messages.getString("FileStep2.groupDelimitedFileSettings"), SWT.DEFAULT); //$NON-NLS-1$
         // change the layout of group from GridLayout to FillLayout
         group.setLayout(new FillLayout());
         GridData groupLayoutData = (GridData) group.getLayoutData();
-        groupLayoutData.heightHint = -1;
-        groupLayoutData.minimumHeight = -1;
-        groupLayoutData.minimumWidth = -1;
-        groupLayoutData.widthHint = -1;
+        groupLayoutData.minimumWidth = SWT.DEFAULT;
+        groupLayoutData.widthHint = SWT.DEFAULT;
         groupLayoutData.grabExcessVerticalSpace = false;
         Composite compositeFileDelimitor = Form.startNewDimensionnedGridLayout(group, 4, width, height);
         // for the layout of group has been changed from GridLayout to FillLayout, layout data must be changed too.
@@ -369,14 +367,12 @@ public class DelimitedFileStep2Form extends AbstractDelimitedFileStepForm implem
 
     private void addGroupRowsToSkip(final Composite mainComposite, final int width, final int height) {
         // compositerowsToSkip Main Fields
-        Group group = Form.createGroup(mainComposite, 1, Messages.getString("FileStep2.groupRowsToSkip"), height); //$NON-NLS-1$
+        Group group = Form.createGroup(mainComposite, 1, Messages.getString("FileStep2.groupRowsToSkip"), SWT.DEFAULT); //$NON-NLS-1$
         // change the layout of group from GridLayout to FillLayout
         group.setLayout(new FillLayout());
         GridData groupLayoutData = (GridData) group.getLayoutData();
-        groupLayoutData.heightHint = -1;
-        groupLayoutData.minimumHeight = -1;
-        groupLayoutData.minimumWidth = -1;
-        groupLayoutData.widthHint = -1;
+        groupLayoutData.minimumWidth = SWT.DEFAULT;
+        groupLayoutData.widthHint = SWT.DEFAULT;
         groupLayoutData.grabExcessVerticalSpace = false;
         Composite compositeRowsToSkip = Form.startNewDimensionnedGridLayout(group, 3, width - 100, height);
         // for the layout of group has been changed from GridLayout to FillLayout, layout data must be changed too
@@ -418,14 +414,12 @@ public class DelimitedFileStep2Form extends AbstractDelimitedFileStepForm implem
     private void addGroupEscapeChar(final Composite mainComposite, final int width, final int height) {
 
         // Composite Escape Char
-        Group group = Form.createGroup(mainComposite, 2, Messages.getString("FileStep2.groupEscapeCharSettings"), height); //$NON-NLS-1$
+        Group group = Form.createGroup(mainComposite, 2, Messages.getString("FileStep2.groupEscapeCharSettings"), SWT.DEFAULT); //$NON-NLS-1$
         // change the layout of group from GridLayout to FillLayout
         group.setLayout(new FillLayout());
         GridData groupLayoutData = (GridData) group.getLayoutData();
-        groupLayoutData.heightHint = -1;
-        groupLayoutData.minimumHeight = -1;
-        groupLayoutData.minimumWidth = -1;
-        groupLayoutData.widthHint = -1;
+        groupLayoutData.minimumWidth = SWT.DEFAULT;
+        groupLayoutData.widthHint = SWT.DEFAULT;
         groupLayoutData.grabExcessVerticalSpace = false;
         Composite compositeEscapeChar = Form.startNewDimensionnedGridLayout(group, 3, width, height);
         // for the layout of group has been changed from GridLayout to FillLayout, layout data must be changed too.
@@ -495,14 +489,12 @@ public class DelimitedFileStep2Form extends AbstractDelimitedFileStepForm implem
      */
     private void addGroupLimit(final Composite mainComposite, final int width, final int height) {
         // Composite Limited rows
-        Group group = Form.createGroup(mainComposite, 2, Messages.getString("FileStep2.groupLimitOfRows"), height); //$NON-NLS-1$
+        Group group = Form.createGroup(mainComposite, 2, Messages.getString("FileStep2.groupLimitOfRows"), SWT.DEFAULT); //$NON-NLS-1$
         // change the layout of group from GridLayout to FillLayout
         group.setLayout(new FillLayout());
         GridData groupLayoutData = (GridData) group.getLayoutData();
-        groupLayoutData.heightHint = -1;
-        groupLayoutData.minimumHeight = -1;
-        groupLayoutData.minimumWidth = -1;
-        groupLayoutData.widthHint = -1;
+        groupLayoutData.minimumWidth = SWT.DEFAULT;
+        groupLayoutData.widthHint = SWT.DEFAULT;
         groupLayoutData.grabExcessVerticalSpace = false;
         Composite compositeLimit = Form.startNewDimensionnedGridLayout(group, 3, width, height);
         // for the layout of group has been changed to FillLayout from GridLayout, the layout data must be changed too.
@@ -545,13 +537,9 @@ public class DelimitedFileStep2Form extends AbstractDelimitedFileStepForm implem
         // composite Delimited File Preview
         // previewGroup = Form.createGroup(tabFolder, 1, Messages.getString("FileStep2.groupPreview"), height);
         // //$NON-NLS-1$
-        Composite compositeDelimitedFilePreviewButton = Form.startNewDimensionnedGridLayout(previewComposite, 4, width,
-                HEIGHT_BUTTON_PIXEL);
+        Composite compositeDelimitedFilePreviewButton = Form.startNewDimensionnedGridLayout(previewComposite, 4, SWT.DEFAULT,
+                SWT.DEFAULT);
         GridData groupLayoutData = (GridData) compositeDelimitedFilePreviewButton.getLayoutData();
-        groupLayoutData.heightHint = -1;
-        groupLayoutData.minimumHeight = -1;
-        groupLayoutData.minimumWidth = -1;
-        groupLayoutData.widthHint = -1;
         groupLayoutData.grabExcessVerticalSpace = false;
         // height = height - HEIGHT_BUTTON_PIXEL - 15;
 
@@ -572,12 +560,9 @@ public class DelimitedFileStep2Form extends AbstractDelimitedFileStepForm implem
                 .setText("                                                                                                                        "); //$NON-NLS-1$
         previewInformationLabel.setForeground(getDisplay().getSystemColor(SWT.COLOR_BLUE));
 
-        Composite compositeDelimitedFilePreview = Form.startNewDimensionnedGridLayout(previewComposite, 1, width, height);
+        Composite compositeDelimitedFilePreview = Form.startNewDimensionnedGridLayout(previewComposite, 1, SWT.DEFAULT,
+                SWT.DEFAULT);
         groupLayoutData = (GridData) compositeDelimitedFilePreview.getLayoutData();
-        groupLayoutData.heightHint = -1;
-        groupLayoutData.minimumHeight = -1;
-        groupLayoutData.minimumWidth = -1;
-        groupLayoutData.widthHint = -1;
         groupLayoutData.grabExcessVerticalSpace = true;
 
         // Delimited File Preview
